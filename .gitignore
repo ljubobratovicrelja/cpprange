@@ -1,3 +1,4 @@
-functionalpipelines.dSYM/
-functionalpipelines
+cppranges.dSYM/
+cppranges
 *.asm
+.DS_Store

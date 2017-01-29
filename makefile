@@ -14,11 +14,11 @@ pipedcalls:
 	$(CC) src/main.cpp -o pipedcalls.asm -D PROGRAM_PIPED_CALLS -S $(CFLAGS)
 
 app:
-	$(CC) src/main.cpp -std=c++14 -Wall -O0 -g -o functionalpipelines
+	$(CC) src/main.cpp -std=c++14 -Wall -O0 -g -o cppranges
 
 app-asm:
-	$(CC) src/main.cpp -std=c++14 -Wall -O3 -o functionalpipelines.asm -S
+	$(CC) src/main.cpp -std=c++14 -Wall -O3 -o cppranges.asm -S
 
 clean:
-	rm -rf functionalpipelines functionalpipelines.asm reduce.asm genops.asm pipedcalls.asm
+	rm -rf cppranges cppranges.asm reduce.asm genops.asm pipedcalls.asm
 

@@ -133,6 +133,16 @@ int main( int, char *[] ) {
             std::cout << std::string( line.begin(), line.end() ) << std::endl;
         });
 
+    example_header(5);
+
+    /*
+     * Take only even numbers in the range.
+     */
+
+    iota ( 10 )
+        .filter([] (auto e) { return e % 2 == 0; })
+        .each([] (auto e) { std::cout << e << std::endl; });
+
     return 0;
 }
 

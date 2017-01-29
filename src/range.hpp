@@ -218,12 +218,11 @@ public:
 template<class I, class Fn>
 struct FilterIterator :
     public std::iterator<
-    typename std::iterator_traits<I>::iterator_category,
-    typename std::iterator_traits<I>::value_type >  {
-
-    using value_type = typename std::iterator_traits<I>::value_type;
-    using pointer = typename std::iterator_traits<I>::pointer;
-    using reference = typename std::iterator_traits<I>::reference;
+    std::forward_iterator_tag,
+    typename std::iterator_traits<I>::value_type,
+    ptrdiff_t,
+    typename std::iterator_traits<I>::pointer,
+    typename std::iterator_traits<I>::reference>  {
 
     I iter;
     I end;
@@ -238,15 +237,27 @@ struct FilterIterator :
         return *iter;
     }
 
-    RANDOM_ACCESS_ITERATOR_WRAPPER_IMPL( FilterIterator, end, fn )
+    FilterIterator &operator++()
+    {
+        if (iter != end)
+            ++iter;
+        return *this;
+    }
+
+    FilterIterator operator++(int)
+    {
+        auto t(*this);
+        if (iter != end)
+            ++iter;
+        return t;
+    }
+
+    ITERATOR_WRAPPER_COMPARISON_IMPL(FilterIterator, iter);
 };
 
 template<class I, class J = I>
-struct IotaIterator : public std::iterator< std::random_access_iterator_tag, I> {
-
-    using value_type = I;
-    using pointer = I;
-    using reference = I;
+struct IotaIterator :
+    public std::iterator< std::random_access_iterator_tag, I, ptrdiff_t, I, I> {
 
     I iter;
     J jump;
